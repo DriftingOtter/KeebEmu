@@ -6,7 +6,10 @@ import sys
 
 # Global Key Pressed State Variable 
 key_pressed = False
-sound_directory = str(sys.argv[1])
+
+script_args = sys.argv
+sound_directory = str(script_args[1])
+
 file_names = os.listdir(sound_directory)
 
 
