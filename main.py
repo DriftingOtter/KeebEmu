@@ -1,5 +1,4 @@
 from pynput import keyboard
-import sys
 import os
 from playsound import playsound
 
@@ -42,8 +41,20 @@ def check_for_correct_sound(key):
 
     for file_name in file_names:
 
-        if key.char.toupper() or key.toupper() == file_name[:-4]:
-            playsound(f'{sound_directory}/{key.toupper()}.mp3')
+        if key.char.upper() == file_name[:-4]:
+
+            keyname = key.char.upper()
+            keyname = keyname.replace("'", "")
+
+            playsound(f'{sound_directory}/{keyname}.mp3')
+
+        elif key.upper() == file_name[:-4]:
+
+            keyname = key.upper()
+            keyname = keyname.replace("'", "")
+
+            playsound(f'{sound_directory}/{keyname}.mp3')
+
 
 listener = keyboard.Listener(on_press=on_press, on_release=on_release)
 
