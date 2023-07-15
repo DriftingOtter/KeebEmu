@@ -24,9 +24,6 @@ def on_release(key):
         return False
 
 listener = keyboard.Listener(on_press=on_press, on_release=on_release)
-
 listener.start()
-
-while True:
-    pass
+listener.join()
 
