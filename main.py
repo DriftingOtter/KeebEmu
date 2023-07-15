@@ -55,7 +55,7 @@ def play_key_sound(key):
         
         try:
             playsound(f'{sound_directory}/{keyname}.mp3')
-        except:
+        except Exception:
             pass
 
 
@@ -69,7 +69,7 @@ def play_key_sound(key):
 
         try:
             playsound(f'{sound_directory}/{keyname}.mp3')
-        except:
+        except Exception:
             pass
 
 
