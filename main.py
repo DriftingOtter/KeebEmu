@@ -1,12 +1,12 @@
 from pynput import keyboard
-import os
 from playsound import playsound
+import os
+import sys
 
 
 # Global Key Pressed State Variable 
 key_pressed = False
-
-sound_directory = '/Documents/CreamSwitchesRyan'
+sound_directory = str(sys.argv[1])
 file_names = os.listdir(sound_directory)
 
 
@@ -17,12 +17,15 @@ def on_press(key):
         if not key_pressed:
             key_pressed = True
             print(f'Pressed: {key.char}')
+            play_key_sound(key)
 
     # For Special Chars
     except AttributeError:
+
         if not key_pressed:
             key_pressed = True
             print(f'Pressed: {key}')
+            play_key_sound()
 
 
 def on_release(key):
@@ -35,27 +38,27 @@ def on_release(key):
         return False
 
 
-def check_for_correct_sound(key):
+def play_key_sound(key):
 
-    global sound_directory, files_names
+    global sound_directory
 
-    for file_name in file_names:
+    try:
+        keyname = str(key.char).upper().replace("'", "")
+        print(keyname)
 
-        if key.char.upper() == file_name[:-4]:
+        print(f'{sound_directory}/{keyname}.mp3')
+        playsound(f'{sound_directory}/{keyname}.mp3')
 
-            keyname = key.char.upper()
-            keyname = keyname.replace("'", "")
+    except AttributeError:
 
-            playsound(f'{sound_directory}/{keyname}.mp3')
+        keyname = str(key).upper().replace("'", "")
+        print(keyname)
 
-        elif key.upper() == file_name[:-4]:
-
-            keyname = key.upper()
-            keyname = keyname.replace("'", "")
-
-            playsound(f'{sound_directory}/{keyname}.mp3')
+        print(f'{sound_directory}/{keyname}.mp3')
+        playsound(f'{sound_directory}/{keyname}.mp3')
 
 
+# Create Keyboard Listern
 listener = keyboard.Listener(on_press=on_press, on_release=on_release)
 
 if __name__ == "__main__":
