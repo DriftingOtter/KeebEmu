@@ -1,14 +1,23 @@
 from pynput import keyboard
 
+key_pressed = False
+
 def on_press(key):
+    global key_pressed
     try:
-        print('alphanumeric key {0} pressed'.format(key.char))
+        if not key_pressed:
+            key_pressed = True
+            print('alphanumeric key {0} pressed'.format(key.char))
 
     except AttributeError:
-        print('special key {0} pressed'.format(key))
+        if not key_pressed:
+            key_pressed = True
+            print('special key {0} pressed'.format(key))
 
 def on_release(key):
+    global key_pressed
     print('{0} released'.format(key))
+    key_pressed = False
 
     if key == keyboard.Key.esc:
         # Stop listener
@@ -20,3 +29,4 @@ listener.start()
 
 while True:
     pass
+
