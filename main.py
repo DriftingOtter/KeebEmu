@@ -1,22 +1,26 @@
 from pynput import keyboard
 
+# Global Key Pressed State Variable 
 key_pressed = False
 
 def on_press(key):
+
     global key_pressed
+
     try:
         if not key_pressed:
             key_pressed = True
-            print('alphanumeric key {0} pressed'.format(key.char))
+            print(f'Pressed: {key.char}')
 
     except AttributeError:
         if not key_pressed:
             key_pressed = True
-            print('special key {0} pressed'.format(key))
+            print(f'Pressed: {key}')
 
 def on_release(key):
+
     global key_pressed
-    print('{0} released'.format(key))
+
     key_pressed = False
 
     if key == keyboard.Key.esc:
@@ -24,6 +28,8 @@ def on_release(key):
         return False
 
 listener = keyboard.Listener(on_press=on_press, on_release=on_release)
-listener.start()
-listener.join()
+
+if __name__ == "__main__":
+    listener.start()
+    listener.join()
 
