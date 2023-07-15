@@ -19,14 +19,15 @@ def on_press(key):
     try:
         if not key_pressed:
             key_pressed = True
+
             print(f'Pressed: {key.char}')
             play_key_sound(key)
 
-    # For Special Chars
     except AttributeError:
 
         if not key_pressed:
             key_pressed = True
+
             print(f'Pressed: {key}')
             play_key_sound()
 
@@ -37,7 +38,6 @@ def on_release(key):
     key_pressed = False
 
     if key == keyboard.Key.esc:
-        # Stop listener
         return False
 
 
@@ -46,25 +46,36 @@ def play_key_sound(key):
     global sound_directory
 
     try:
+
+        # Remove Quotes From Pynput & Make Text Upper Case To Match File Naming
         keyname = str(key.char).upper().replace("'", "")
         print(keyname)
 
         print(f'{sound_directory}/{keyname}.mp3')
-        playsound(f'{sound_directory}/{keyname}.mp3')
+        
+        try:
+            playsound(f'{sound_directory}/{keyname}.mp3')
+        except:
+            pass
+
 
     except AttributeError:
-
+        
+        # Remove Quotes From Pynput & Make Text Upper Case To Match File Naming
         keyname = str(key).upper().replace("'", "")
         print(keyname)
 
         print(f'{sound_directory}/{keyname}.mp3')
-        playsound(f'{sound_directory}/{keyname}.mp3')
 
+        try:
+            playsound(f'{sound_directory}/{keyname}.mp3')
+        except:
+            pass
 
-# Create Keyboard Listern
-listener = keyboard.Listener(on_press=on_press, on_release=on_release)
 
 if __name__ == "__main__":
+    listener = keyboard.Listener(on_press=on_press, on_release=on_release)
+
     listener.start()
     listener.join()
 
