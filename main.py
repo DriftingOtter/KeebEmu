@@ -42,7 +42,6 @@ def on_release(key):
     if key == keyboard.Key.esc:
         return False
 
-
 def play_key_sound(key):
 
     global sound_directory, file_names
@@ -50,27 +49,26 @@ def play_key_sound(key):
     try:
         # Remove Quotes From Pynput & Make Text Upper Case To Match File Naming
         keyname = str(key.char).upper().replace("'", "")
-        if key.char.isalnum():
-            print(f'{sound_directory}/NORMAL.mp3')
-            playsound(f'{sound_directory}/NORMAL.mp3')     
-    except Exception:
-        pass
 
-    except AttributeError:
-        
-        # Remove Quotes From Pynput & Make Text Upper Case To Match File Naming
-        keyname = str(key).upper().replace("'", "")
-        
-        try:
-            print(f'{sound_directory}/{charRef.specialChar_mapping.get(key, key)}.mp3')
-            playsound(f'{sound_directory}/{charRef.specialChar_mapping.get(key, key)}.mp3')
-        except Exception:
+        if keyname.isalnum():
+
+            print(f'{sound_directory}/NORMAL.mp3')
+            playsound(f'{sound_directory}/NORMAL.mp3')   
+
+        elif "KEY" in str(keyname):
+
             for files in file_names:
-                keyname = key.upper().replace("'", "")
-    
                 if keyname == file_names:
                     print(f'{sound_directory}/{keyname}.mp3')
                     playsound(f'{sound_directory}/{keyname}.mp3')
+
+        else:
+
+            print(f'{sound_directory}/{charRef.specialChar_mapping.get(keyname, keyname)}.mp3')
+            playsound(f'{sound_directory}/{charRef.specialChar_mapping.get(keyname, keyname)}.mp3')
+
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":
