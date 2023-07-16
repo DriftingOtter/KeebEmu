@@ -2,14 +2,16 @@ from pynput import keyboard
 from playsound import playsound
 import os
 import sys
-
+import charRef
 
 # Global Key Pressed State Variable 
 key_pressed = False
 
+# Used to pull sound pack location (test*)
 script_args = sys.argv
 sound_directory = str(script_args[1])
 
+# Get all file names in sound pack directory
 file_names = os.listdir(sound_directory)
 
 
@@ -49,12 +51,11 @@ def play_key_sound(key):
 
         # Remove Quotes From Pynput & Make Text Upper Case To Match File Naming
         keyname = str(key.char).upper().replace("'", "")
-        print(keyname)
-
-        print(f'{sound_directory}/{keyname}.mp3')
         
         try:
-            playsound(f'{sound_directory}/{keyname}.mp3')
+            if key in charRef.specialChar_mapping:
+                print(f'{sound_directory}/{charRef.specialChar_mapping[key]}.mp3')
+                playsound(f'{sound_directory}/{charRef.specialChar_mapping[key]}.mp3')
         except Exception:
             pass
 
@@ -63,12 +64,11 @@ def play_key_sound(key):
         
         # Remove Quotes From Pynput & Make Text Upper Case To Match File Naming
         keyname = str(key).upper().replace("'", "")
-        print(keyname)
-
-        print(f'{sound_directory}/{keyname}.mp3')
 
         try:
-            playsound(f'{sound_directory}/{keyname}.mp3')
+            if key in charRef.specialChar_mapping:
+                print(f'{sound_directory}/{charRef.specialChar_mapping[key]}.mp3')
+                playsound(f'{sound_directory}/{keyname}.mp3')
         except Exception:
             pass
 
