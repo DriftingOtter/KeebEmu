@@ -53,9 +53,9 @@ def play_key_sound(key):
         keyname = str(key.char).upper().replace("'", "")
         
         try:
-            if key in charRef.specialChar_mapping:
-                print(f'{sound_directory}/{charRef.specialChar_mapping[key]}.mp3')
-                playsound(f'{sound_directory}/{charRef.specialChar_mapping[key]}.mp3')
+            if key.char.isalpha():
+                print(f'{sound_directory}/NORMAL.mp3')
+                playsound(f'{sound_directory}/NORMAL.mp3')
         except Exception:
             pass
 
@@ -66,9 +66,8 @@ def play_key_sound(key):
         keyname = str(key).upper().replace("'", "")
 
         try:
-            if key in charRef.specialChar_mapping:
-                print(f'{sound_directory}/{charRef.specialChar_mapping[key]}.mp3')
-                playsound(f'{sound_directory}/{keyname}.mp3')
+            print(f'{sound_directory}/{charRef.specialChar_mapping.get(key, key)}.mp3')
+            playsound(f'{sound_directory}/{charRef.specialChar_mapping.get(key, key)}.mp3')
         except Exception:
             pass
 
