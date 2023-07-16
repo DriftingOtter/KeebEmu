@@ -53,8 +53,8 @@ def play_key_sound(key):
         if key.char.isalnum():
             print(f'{sound_directory}/NORMAL.mp3')
             playsound(f'{sound_directory}/NORMAL.mp3')     
-        except Exception:
-            pass
+    except Exception:
+        pass
 
     except AttributeError:
         
