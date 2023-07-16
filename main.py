@@ -48,23 +48,21 @@ def play_key_sound(key):
     global sound_directory
 
     try:
-
         # Remove Quotes From Pynput & Make Text Upper Case To Match File Naming
         keyname = str(key.char).upper().replace("'", "")
-        
-        try:
-            if key.char.isalpha():
+        try: 
+            if key.char.isalnum():
                 print(f'{sound_directory}/NORMAL.mp3')
                 playsound(f'{sound_directory}/NORMAL.mp3')
+                
         except Exception:
             pass
-
 
     except AttributeError:
         
         # Remove Quotes From Pynput & Make Text Upper Case To Match File Naming
         keyname = str(key).upper().replace("'", "")
-
+        
         try:
             print(f'{sound_directory}/{charRef.specialChar_mapping.get(key, key)}.mp3')
             playsound(f'{sound_directory}/{charRef.specialChar_mapping.get(key, key)}.mp3')
