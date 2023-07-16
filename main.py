@@ -45,16 +45,14 @@ def on_release(key):
 
 def play_key_sound(key):
 
-    global sound_directory
+    global sound_directory, file_names
 
     try:
         # Remove Quotes From Pynput & Make Text Upper Case To Match File Naming
         keyname = str(key.char).upper().replace("'", "")
-        try: 
-            if key.char.isalnum():
-                print(f'{sound_directory}/NORMAL.mp3')
-                playsound(f'{sound_directory}/NORMAL.mp3')
-                
+        if key.char.isalnum():
+            print(f'{sound_directory}/NORMAL.mp3')
+            playsound(f'{sound_directory}/NORMAL.mp3')     
         except Exception:
             pass
 
@@ -67,7 +65,12 @@ def play_key_sound(key):
             print(f'{sound_directory}/{charRef.specialChar_mapping.get(key, key)}.mp3')
             playsound(f'{sound_directory}/{charRef.specialChar_mapping.get(key, key)}.mp3')
         except Exception:
-            pass
+            for files in file_names:
+                keyname = key.upper().replace("'", "")
+    
+                if keyname == file_names:
+                    print(f'{sound_directory}/{keyname}.mp3')
+                    playsound(f'{sound_directory}/{keyname}.mp3')
 
 
 if __name__ == "__main__":
